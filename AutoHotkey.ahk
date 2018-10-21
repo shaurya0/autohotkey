@@ -10,6 +10,10 @@ return
 Send, {BackSpace}
 return
 
+!+k::
+Send, ^{BackSpace}
+return
+
 
 !i::
 Send, {Up}
