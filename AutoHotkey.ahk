@@ -14,12 +14,28 @@ return
 Send, ^{BackSpace}
 return
 
+!s::
+Send, {BackSpace}
+return
+
+!+s::
+Send, ^{BackSpace}
+return
+
 
 !i::
 Send, {Up}
 return
 
 !,::
+Send, {Down}
+return
+
+!e::
+Send, {Up}
+return
+
+!c::
 Send, {Down}
 return
 
