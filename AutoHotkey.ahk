@@ -71,6 +71,16 @@ return
 Send, ^{Right}
 return
 
+
+!+j::
+Send, ^+{Left}
+return
+
+!+l::
+Send, ^+{Right}
+return
+
+#IfWinNotActive, Sublime Text
 !n::
 Send, ^{Home}
 return
@@ -86,16 +96,6 @@ return
 !+m::
 Send, ^+{End}
 return
-
-!+j::
-Send, ^+{Left}
-return
-
-!+l::
-Send, ^+{Right}
-return
-
-#IfWinNotActive, Sublime Text
 ^+i::
 Send, {Home}
 return
@@ -103,7 +103,6 @@ return
 ^+,::
 Send, {End}
 return
-
 
 ^,::
 Send, {Enter}
