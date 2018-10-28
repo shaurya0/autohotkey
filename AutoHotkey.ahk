@@ -80,34 +80,35 @@ return
 Send, ^+{Right}
 return
 
-#IfWinNotActive, Sublime Text
 !n::
-Send, ^{Home}
-return
-
-!m::
-Send, ^{End}
-return
-
-!+n::
-Send, ^+{Home}
-return
-
-!+m::
-Send, ^+{End}
-return
-^+i::
 Send, {Home}
 return
 
-^+,::
+!m::
 Send, {End}
 return
 
-^,::
-Send, {Enter}
-return
-#IfWinNotActive
+#IfWinNotActive, Sublime Text
+{
+    !+n::
+    Send, ^+{Home}
+    return
+
+    !+m::
+    Send, ^+{End}
+    return
+    ^+i::
+    Send, ^{Home}
+    return
+
+    ^+,::
+    Send, ^{End}
+    return
+
+    ^,::
+    Send, {Enter}
+    return
+}
 
 !+i::
 Send, +{Up}
@@ -116,4 +117,3 @@ return
 !+,::
 Send, +{Down}
 return
-
