@@ -1,3 +1,4 @@
+#IfWinNotActive ahk_class Sublime Text
 ^h::
 Send, {Delete}
 return
@@ -111,6 +112,7 @@ return
 !+,::
 Send, +{Down}
 return
+#IfWinNotActive
 
 ^`::RoA("ahk_class Sublime Text", "C:\Program Files\Sublime Text 3\sublime_text.exe")
 !`::RoA("ahk_class MozillaWindowClass", "C:\Program Files\Mozilla Firefox\firefox.exe")
