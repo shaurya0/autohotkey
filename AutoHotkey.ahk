@@ -7,15 +7,6 @@ return
 Send, +{Delete}
 return
 
-!s::
-Send, {BackSpace}
-return
-
-!+s::
-Send, ^{BackSpace}
-return
-
-
 !i::
 Send, {Up}
 return
@@ -26,10 +17,6 @@ return
 
 !e::
 Send, {Up}
-return
-
-!c::
-Send, {Down}
 return
 
 ^+o::
@@ -114,7 +101,7 @@ Send, +{Down}
 return
 #IfWinNotActive
 
-^`::RoA("ahk_class Sublime Text", "C:\Program Files\Sublime Text 3\sublime_text.exe")
+^`::RoA("ahk_class Sublime Text", "C:\Program Files\Sublime Text 3\subl.exe")
 !`::RoA("ahk_class MozillaWindowClass", "C:\Program Files\Mozilla Firefox\firefox.exe")
 !Space::RoA("ahk_class CASCADIA_HOSTING_WINDOW_CLASS", "C:\Users\shaurya\AppData\Local\Microsoft\WindowsApps\wt.exe")
 
@@ -133,3 +120,16 @@ RoA("ahk_class HwndWrapper[DefaultDomain;;0e3c8dcb-8627-48b2-88f2-7c0ee6d7273d]"
 Send, ^+b
 return
 
+!+`::
+WinGetClass, OldClass, A
+WinGet, ActiveProcessName, ProcessName, A
+WinGet, WinClassCount, Count, ahk_exe %ActiveProcessName%
+IF WinClassCount = 1
+    Return
+loop, 2 {
+  WinSet, Bottom,, A
+  WinActivate, ahk_exe %ActiveProcessName%
+  WinGetClass, NewClass, A
+  if (OldClass <> "CabinetWClass" or NewClass = "CabinetWClass")
+    break
+}
