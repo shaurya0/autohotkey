@@ -102,7 +102,6 @@ return
 #IfWinNotActive
 
 ^`::RoA("ahk_class Sublime Text", "C:\Program Files\Sublime Text 3\subl.exe")
-!`::RoA("ahk_class MozillaWindowClass", "C:\Program Files\Mozilla Firefox\firefox.exe")
 !Space::RoA("ahk_class CASCADIA_HOSTING_WINDOW_CLASS", "C:\Users\shaurya\AppData\Local\Microsoft\WindowsApps\wt.exe")
 
 WinGetClass, class, A
@@ -115,21 +114,48 @@ RoA(WinTitle, Target) { ; RoA means "RunOrActivate"
         Run, %Target%
 }
 
+!`::RoA("ahk_class MozillaWindowClass", "C:\Program Files\Mozilla Firefox\firefox.exe")
+
 !^b::
 RoA("ahk_class HwndWrapper[DefaultDomain;;0e3c8dcb-8627-48b2-88f2-7c0ee6d7273d]", "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe")
 Send, ^+b
 return
 
-!+`::
-WinGetClass, OldClass, A
-WinGet, ActiveProcessName, ProcessName, A
-WinGet, WinClassCount, Count, ahk_exe %ActiveProcessName%
-IF WinClassCount = 1
-    Return
-loop, 2 {
-  WinSet, Bottom,, A
-  WinActivate, ahk_exe %ActiveProcessName%
-  WinGetClass, NewClass, A
-  if (OldClass <> "CabinetWClass" or NewClass = "CabinetWClass")
-    break
+
+ExtractAppTitle(FullTitle)
+{
+    AppTitle := SubStr(FullTitle, InStr(FullTitle, " ", false, -1) + 1)
+    Return AppTitle
 }
+
+
+
+/* ;
+***********************************
+***** SHORTCUTS CONFIGURATION *****
+***********************************
+*/
+
+
+; Alt + ` -  Activate NEXT Window of same type (title checking) of the current APP
+!+`::
+WinGet, ActiveProcess, ProcessName, A
+WinGet, OpenWindowsAmount, Count, ahk_exe %ActiveProcess%
+
+If OpenWindowsAmount = 1  ; If only one Window exist, do nothing
+    Return
+
+Else
+    {
+        WinGetTitle, FullTitle, A
+        AppTitle := ExtractAppTitle(FullTitle)
+
+        SetTitleMatchMode, 2
+        WinGet, WindowsWithSameTitleList, List, %AppTitle%
+
+        If WindowsWithSameTitleList > 1 ; If several Window of same type (title checking) exist
+        {
+            WinActivate, % "ahk_id " WindowsWithSameTitleList%WindowsWithSameTitleList% ; Activate next Window
+        }
+    }
+Return
