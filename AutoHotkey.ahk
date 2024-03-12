@@ -1,6 +1,29 @@
-#IfWinNotActive ahk_class Sublime Text
+GroupAdd,TextEditor,ahk_exe sublime_text.exe
+GroupAdd,TextEditor,ahk_exe code.exe
+
+#IfWinNotActive ahk_group TextEditor
 ^h::
 Send, {Delete}
+return
+
+^u::
+Send, ^{PgUp}
+return
+
+^o::
+Send, ^{PgDn}
+return
+
+!c::
+Send, ^c
+return
+
+!x::
+Send, ^x
+return
+
+!v::
+Send, ^v
 return
 
 ^+h::
@@ -19,45 +42,12 @@ return
 Send, {Up}
 return
 
-^+o::
+!y::
 Send, {PgUp}
 return
 
-^+.::
+!h::
 Send, {PgDn}
-return
-
-!u::
-Send, {Left}
-return
-
-!o::
-Send, {Right}
-return
-
-!+u::
-Send, +{Left}
-return
-
-!+o::
-Send, +{Right}
-return
-
-!j::
-Send, ^{Left}
-return
-
-!l::
-Send, ^{Right}
-return
-
-
-!+j::
-Send, ^+{Left}
-return
-
-!+l::
-Send, ^+{Right}
 return
 
 !n::
@@ -74,22 +64,10 @@ return
 
 !+m::
 Send, +{End}
-return    
+return
 
 ^+,::
 Send, ^{End}
-return
-
-^,::
-Send, {Enter}
-return
-
-!k::
-Send, {BackSpace}
-return
-
-!+k::
-Send, ^{BackSpace}
 return
 
 !+i::
@@ -99,13 +77,54 @@ return
 !+,::
 Send, +{Down}
 return
-#IfWinNotActive
 
-^`::RoA("ahk_class Sublime Text", "C:\Program Files\Sublime Text 3\subl.exe")
-!Space::RoA("ahk_class CASCADIA_HOSTING_WINDOW_CLASS", "C:\Users\shaurya\AppData\Local\Microsoft\WindowsApps\wt.exe")
+!p::
+Send, ^l
+return
 
-WinGetClass, class, A
-MsgBox, The active window's class is "%class%".
+
+!w::
+Send, ^w
+return
+
+!l::
+Send, ^{Right}
+return
+
+
+#If
+
+
+
+^,::
+Send, {Enter}
+return
+
+
+!k::
+Send, {BackSpace}
+return
+
+!+k::
+Send, ^{BackSpace}
+return
+
+
+!j::
+Send, ^{Left}
+return
+
+
+
+!u::
+Send, {Left}
+return
+
+!o::
+Send, {Right}
+return
+
+
 
 RoA(WinTitle, Target) { ; RoA means "RunOrActivate"
     IfWinExist, %WinTitle%
@@ -114,7 +133,14 @@ RoA(WinTitle, Target) { ; RoA means "RunOrActivate"
         Run, %Target%
 }
 
-!`::RoA("ahk_class MozillaWindowClass", "C:\Program Files\Mozilla Firefox\firefox.exe")
+
+!=::RoA("ahk_class Sublime Text", "C:\Program Files\Sublime Text 3\subl.exe")
+
+!Space::RoA("ahk_class CASCADIA_HOSTING_WINDOW_CLASS", "C:\Users\shaurya\AppData\Local\Microsoft\WindowsApps\wt.exe")
+
+
+!Backspace::RoA("ahk_class MozillaWindowClass", "C:\Program Files\Mozilla Firefox\firefox.exe")
+
 
 !^b::
 RoA("ahk_class HwndWrapper[DefaultDomain;;0e3c8dcb-8627-48b2-88f2-7c0ee6d7273d]", "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe")
